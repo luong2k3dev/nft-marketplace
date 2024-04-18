@@ -11,7 +11,8 @@ async function deployContracts() {
   console.log("Contracts are deploying...");
 
   const totalSupplyErc20 = 1000; // 1000 token
-  const listingFees = 1000000000000000; // 0.1 ETH
+  const listingFeePercentage = 25; // 2.5 %
+  const listingFeeDecimal = 1;
 
   const erc20Token = await deploy("MyERC20Token", [totalSupplyErc20]);
   const erc721Token = await deploy("MyERC721Token", []);
@@ -26,7 +27,8 @@ async function deployContracts() {
     erc20TokenAddress,
     erc721TokenAddress,
     erc1155TokenAddress,
-    listingFees,
+    listingFeePercentage,
+    listingFeeDecimal,
   ]);
 
   const tokenSaleAddress = await tokenSale.getAddress();
@@ -60,7 +62,8 @@ async function deployContracts() {
         erc20TokenAddress,
         erc721TokenAddress,
         erc1155TokenAddress,
-        listingFees,
+        listingFeePercentage,
+        listingFeeDecimal,
       ],
     },
   };

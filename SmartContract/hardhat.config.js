@@ -7,7 +7,15 @@ const { ALCHEMY_HTTPS_URL, MUMBAI_PRIVATE_KEY, POLYGONSCAN_API_KEY } =
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.24",
+  solidity: {
+    version: "0.8.24",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
   networks: {
     mumbai: {
       url: ALCHEMY_HTTPS_URL,

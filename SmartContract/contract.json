@@ -1,6 +1,6 @@
 {
   "erc20Token": {
-    "address": "0xDd88fB407e57fC5d4a6Bc2c37077D740e32434F2",
+    "address": "0xdF25eCD31DF8Ad4f96cc2ECb64b2640335a5760C",
     "abi": [
       {
         "inputs": [
@@ -358,7 +358,7 @@
     ]
   },
   "erc721Token": {
-    "address": "0x3F3B437e6e622D8344644b313FbC98017C7B01d0",
+    "address": "0x78A2fd522782F9b9E071807F1f315a9DA40FeA0b",
     "abi": [
       {
         "inputs": [],
@@ -865,7 +865,7 @@
     "arguments": []
   },
   "erc1155Token": {
-    "address": "0x7639190e8e8cea1cB9BED82dD47958b9c955163e",
+    "address": "0x194179dA2D6C3cf7D33200865039107D61DD32A3",
     "abi": [
       {
         "inputs": [],
@@ -1359,7 +1359,7 @@
     "arguments": []
   },
   "tokenSale": {
-    "address": "0x7c1f750004cb0eAf0a441c091F7Fa126DD4c250f",
+    "address": "0x76416cEDBb4974a40605b177A818800B94AD0603",
     "abi": [
       {
         "inputs": [
@@ -1407,11 +1407,11 @@
       }
     ],
     "arguments": [
-      "0xDd88fB407e57fC5d4a6Bc2c37077D740e32434F2"
+      "0xdF25eCD31DF8Ad4f96cc2ECb64b2640335a5760C"
     ]
   },
   "nftMarketplace": {
-    "address": "0x87D21C06C2c90b419703bd6e1011299Ae8733B6C",
+    "address": "0x93881aaA80217B3c558d203716668C27a24CaCD5",
     "abi": [
       {
         "inputs": [
@@ -1432,7 +1432,12 @@
           },
           {
             "internalType": "uint256",
-            "name": "_listingFee",
+            "name": "_listingFeePercentage",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_listingFeeDecimal",
             "type": "uint256"
           }
         ],
@@ -1442,6 +1447,12 @@
       {
         "anonymous": false,
         "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "creator",
+            "type": "address"
+          },
           {
             "indexed": true,
             "internalType": "uint256",
@@ -1459,6 +1470,18 @@
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "bidPrice",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "NFTAuctionBidPlaced",
@@ -1469,21 +1492,21 @@
         "inputs": [
           {
             "indexed": true,
+            "internalType": "address",
+            "name": "creator",
+            "type": "address"
+          },
+          {
+            "indexed": true,
             "internalType": "uint256",
             "name": "tokenId",
             "type": "uint256"
           },
           {
-            "indexed": true,
-            "internalType": "address",
-            "name": "winner",
-            "type": "address"
-          },
-          {
             "indexed": false,
-            "internalType": "uint256",
-            "name": "winningBid",
-            "type": "uint256"
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "NFTAuctionEnded",
@@ -1495,7 +1518,50 @@
           {
             "indexed": true,
             "internalType": "address",
+            "name": "claimer",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
             "name": "seller",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isAuction",
+            "type": "bool"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
+          }
+        ],
+        "name": "NFTClaimed",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "creator",
             "type": "address"
           },
           {
@@ -1533,6 +1599,12 @@
             "internalType": "uint256",
             "name": "step",
             "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "NFTListedForAuction",
@@ -1564,6 +1636,12 @@
             "internalType": "uint256",
             "name": "price",
             "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "NFTListedForSale",
@@ -1583,9 +1661,89 @@
             "internalType": "uint256",
             "name": "tokenId",
             "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isAuction",
+            "type": "bool"
           }
         ],
         "name": "NFTListingCancelled",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "seller",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "offerId",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isSoldOut",
+            "type": "bool"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
+          }
+        ],
+        "name": "NFTOfferAccepted",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "seller",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "offerId",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
+          }
+        ],
+        "name": "NFTOfferCanceled",
         "type": "event"
       },
       {
@@ -1612,45 +1770,20 @@
           {
             "indexed": false,
             "internalType": "uint256",
-            "name": "amount",
+            "name": "offerAmount",
             "type": "uint256"
           },
           {
             "indexed": false,
             "internalType": "uint256",
-            "name": "price",
-            "type": "uint256"
-          }
-        ],
-        "name": "NFTOfferAccepted",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "buyer",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "internalType": "uint256",
-            "name": "tokenId",
+            "name": "offerPrice",
             "type": "uint256"
           },
           {
             "indexed": false,
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          },
-          {
-            "indexed": false,
-            "internalType": "uint256",
-            "name": "price",
-            "type": "uint256"
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "NFTOffered",
@@ -1680,14 +1813,26 @@
           {
             "indexed": false,
             "internalType": "uint256",
-            "name": "amount",
+            "name": "buyAmount",
             "type": "uint256"
           },
           {
             "indexed": false,
             "internalType": "uint256",
-            "name": "price",
+            "name": "buyPrice",
             "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isSoldOut",
+            "type": "bool"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "NFTSold",
@@ -1702,23 +1847,18 @@
           },
           {
             "internalType": "address",
-            "name": "buyer",
+            "name": "listter",
             "type": "address"
           },
           {
             "internalType": "uint256",
-            "name": "offerPrice",
+            "name": "offerId",
             "type": "uint256"
           },
           {
-            "internalType": "address[]",
-            "name": "bidders",
-            "type": "address[]"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "amounts",
-            "type": "uint256[]"
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "acceptOffer",
@@ -1732,19 +1872,29 @@
             "internalType": "uint256",
             "name": "",
             "type": "uint256"
-          }
-        ],
-        "name": "auctions",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "tokenId",
-            "type": "uint256"
           },
           {
-            "internalType": "address payable",
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "name": "auctionsErc1155",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
             "name": "seller",
             "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
@@ -1767,9 +1917,63 @@
             "type": "uint256"
           },
           {
+            "internalType": "address",
+            "name": "lastBider",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "lastBidPrice",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "auctionsErc721",
+        "outputs": [
+          {
             "internalType": "bool",
-            "name": "ended",
+            "name": "isErc721",
             "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "seller",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startingPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "step",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -1778,7 +1982,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastBidAmount",
+            "name": "lastBidPrice",
             "type": "uint256"
           }
         ],
@@ -1793,9 +1997,19 @@
             "type": "uint256"
           },
           {
+            "internalType": "address",
+            "name": "listter",
+            "type": "address"
+          },
+          {
             "internalType": "uint256",
-            "name": "amount",
+            "name": "buyAmount",
             "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "buyNFT",
@@ -1809,6 +2023,21 @@
             "internalType": "uint256",
             "name": "tokenId",
             "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "listter",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "isAuction",
+            "type": "bool"
           }
         ],
         "name": "cancelListing",
@@ -1824,9 +2053,75 @@
             "type": "uint256"
           },
           {
+            "internalType": "address",
+            "name": "listter",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "offerId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
+          }
+        ],
+        "name": "cancelOffer",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "listter",
+            "type": "address"
+          },
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isAuction",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
+          }
+        ],
+        "name": "claimedNFT",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "listter",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "endAuction",
@@ -1865,6 +2160,11 @@
             "internalType": "uint256",
             "name": "bidStep",
             "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "listForAuction",
@@ -1888,6 +2188,11 @@
             "internalType": "uint256",
             "name": "price",
             "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "listForSale",
@@ -1897,7 +2202,20 @@
       },
       {
         "inputs": [],
-        "name": "listingFee",
+        "name": "listingFeeDecimal",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "listingFeePercentage",
         "outputs": [
           {
             "internalType": "uint256",
@@ -1916,14 +2234,24 @@
             "type": "uint256"
           },
           {
+            "internalType": "address",
+            "name": "listter",
+            "type": "address"
+          },
+          {
             "internalType": "uint256",
-            "name": "amount",
+            "name": "offerAmount",
             "type": "uint256"
           },
           {
             "internalType": "uint256",
             "name": "offerPrice",
             "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "makeOffer",
@@ -1937,23 +2265,23 @@
             "internalType": "uint256",
             "name": "",
             "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
           }
         ],
-        "name": "marketItems",
+        "name": "marketItemsErc1155",
         "outputs": [
           {
-            "internalType": "uint256",
-            "name": "tokenId",
-            "type": "uint256"
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           },
           {
-            "internalType": "address payable",
+            "internalType": "address",
             "name": "seller",
-            "type": "address"
-          },
-          {
-            "internalType": "address payable",
-            "name": "owner",
             "type": "address"
           },
           {
@@ -1965,16 +2293,166 @@
             "internalType": "uint256",
             "name": "price",
             "type": "uint256"
-          },
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "marketItemsErc721",
+        "outputs": [
           {
             "internalType": "bool",
-            "name": "sold",
+            "name": "isErc721",
             "type": "bool"
           },
           {
-            "internalType": "enum NFTMarketplace.ListingType",
-            "name": "listingType",
-            "type": "uint8"
+            "internalType": "address",
+            "name": "seller",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "price",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "name": "nftClaimsErc1155",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "nftClaimsErc721",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "offersErc1155",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "buyer",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "offerAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "offerPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isCancelled",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "offersErc721",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "buyer",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "offerAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "offerPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isCancelled",
+            "type": "bool"
           }
         ],
         "stateMutability": "view",
@@ -2113,9 +2591,19 @@
             "type": "uint256"
           },
           {
+            "internalType": "address",
+            "name": "listter",
+            "type": "address"
+          },
+          {
             "internalType": "uint256",
-            "name": "amount",
+            "name": "bidPrice",
             "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isErc721",
+            "type": "bool"
           }
         ],
         "name": "placeBid",
@@ -2127,7 +2615,12 @@
         "inputs": [
           {
             "internalType": "uint256",
-            "name": "_listingFee",
+            "name": "_listingFeePercentage",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_listingFeeDecimal",
             "type": "uint256"
           }
         ],
@@ -2170,10 +2663,11 @@
       }
     ],
     "arguments": [
-      "0xDd88fB407e57fC5d4a6Bc2c37077D740e32434F2",
-      "0x3F3B437e6e622D8344644b313FbC98017C7B01d0",
-      "0x7639190e8e8cea1cB9BED82dD47958b9c955163e",
-      1000000000000000
+      "0xdF25eCD31DF8Ad4f96cc2ECb64b2640335a5760C",
+      "0x78A2fd522782F9b9E071807F1f315a9DA40FeA0b",
+      "0x194179dA2D6C3cf7D33200865039107D61DD32A3",
+      25,
+      1
     ]
   }
 }
