@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const { toJSON, paginate } = require('./plugins');
 
 const orderOnchainSchema = mongoose.Schema(
   {
@@ -47,6 +47,7 @@ const orderOnchainSchema = mongoose.Schema(
 );
 
 orderOnchainSchema.plugin(toJSON);
+orderOnchainSchema.plugin(paginate);
 
 const OrderOnchain = mongoose.model('OrderOnchain', orderOnchainSchema);
 

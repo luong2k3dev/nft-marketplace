@@ -1,3 +1,11 @@
 module.exports.userController = require('./user.controller');
 module.exports.roleController = require('./role.controller');
 module.exports.authController = require('./auth.controller');
+module.exports.transactionController = require('./transaction.controller');
+module.exports.nftOwnerController = require('./nft-owner.controller');
+module.exports.nftOnchainController = require('./nft-onchain.controller');
+module.exports.orderOnchainController = require('./order-onchain.controller');
+module.exports.makeofferOnchainController = require('./makeoffer-onchain.controller');
+module.exports.auctionOnchainController = require('./auction-onchain.controller');
+module.exports.bidauctionOnchainController = require('./bidauction-onchain.controller');
+module.exports.buyOnchainController = require('./buy-onchain.controller');

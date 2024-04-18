@@ -8,17 +8,19 @@ const userRouter = express.Router();
 
 userRouter
   .route('/profile')
-  .get(auth, validate(userValidation.getUser), userController.getUser)
-  .put(auth, validate(userValidation.updateUser), userController.updateProfile);
+  .get(validate(userValidation.getUser), userController.getUser)
+  .put(validate(userValidation.updateUser), userController.updateProfile);
+
 userRouter
   .route('/')
-  .get(auth, authorize(['admin']), validate(userValidation.getUsers), userController.getUsers)
-  .post(auth, authorize(['admin']), validate(userValidation.createUser), userController.createUser);
+  .get(validate(userValidation.getUsers), userController.getUsers)
+  .post(validate(userValidation.createUser), userController.createUser);
+
 userRouter
   .route('/:userId')
-  .get(auth, validate(userValidation.getUser), userController.getUser)
-  .put(auth, authorize(['admin']), validate(userValidation.updateUser), userController.updateUser)
-  .delete(auth, authorize(['admin']), validate(userValidation.deleteUser), userController.deleteUser)
-  .lock(auth, authorize(['admin']), userController.lockUser);
+  .get(validate(userValidation.getUser), userController.getUser)
+  .put(validate(userValidation.updateUser), userController.updateUser)
+  .delete(validate(userValidation.deleteUser), userController.deleteUser)
+  .lock(userController.lockUser);
 
 module.exports = userRouter;

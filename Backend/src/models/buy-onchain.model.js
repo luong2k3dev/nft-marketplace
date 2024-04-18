@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const { toJSON, paginate } = require('./plugins');
 
 const buyOnchainSchema = mongoose.Schema(
   {
@@ -40,6 +40,7 @@ const buyOnchainSchema = mongoose.Schema(
 );
 
 buyOnchainSchema.plugin(toJSON);
+buyOnchainSchema.plugin(paginate);
 
 const buyOnchain = mongoose.model('buyOnchain', buyOnchainSchema);
 

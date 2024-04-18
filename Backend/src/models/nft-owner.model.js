@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const { toJSON, paginate } = require('./plugins');
 
 const nftOwnerSchema = mongoose.Schema(
   {
@@ -27,6 +27,7 @@ const nftOwnerSchema = mongoose.Schema(
 );
 
 nftOwnerSchema.plugin(toJSON);
+nftOwnerSchema.plugin(paginate);
 
 const NftOwner = mongoose.model('NftOwner', nftOwnerSchema);
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const { toJSON, paginate } = require('./plugins');
 
 const makeOfferOnchainSchema = mongoose.Schema(
   {
@@ -44,6 +44,7 @@ const makeOfferOnchainSchema = mongoose.Schema(
 );
 
 makeOfferOnchainSchema.plugin(toJSON);
+makeOfferOnchainSchema.plugin(paginate);
 
 const MakeOfferOnchain = mongoose.model('MakeOfferOnchain', makeOfferOnchainSchema);
 

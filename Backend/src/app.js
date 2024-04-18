@@ -49,6 +49,11 @@ if (config.env === 'production') {
   app.use('/api/v1/auth', authLimiter);
 }
 
+// serialize a BigInt
+BigInt.prototype['toJSON'] = function () {
+  return this.toString();
+};
+
 // v1 api routes
 app.use('/api/v1', routes);
 

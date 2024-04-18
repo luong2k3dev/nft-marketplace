@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const { toJSON, paginate } = require('./plugins');
 
 const nftOnchainSchema = mongoose.Schema(
   {
@@ -46,6 +46,7 @@ const nftOnchainSchema = mongoose.Schema(
 );
 
 nftOnchainSchema.plugin(toJSON);
+nftOnchainSchema.plugin(paginate);
 
 const NftOnchain = mongoose.model('NftOnchain', nftOnchainSchema);
 

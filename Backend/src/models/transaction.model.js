@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const { toJSON, paginate } = require('./plugins');
 
 const transactionSchema = mongoose.Schema(
   {
@@ -47,6 +47,7 @@ const transactionSchema = mongoose.Schema(
 );
 
 transactionSchema.plugin(toJSON);
+transactionSchema.plugin(paginate);
 
 const Transaction = mongoose.model('Transaction', transactionSchema);
 

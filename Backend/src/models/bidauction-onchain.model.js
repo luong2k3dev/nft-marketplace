@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const { toJSON, paginate } = require('./plugins');
 
 const bidAuctionOnchainSchema = mongoose.Schema(
   {
@@ -38,6 +38,7 @@ const bidAuctionOnchainSchema = mongoose.Schema(
 );
 
 bidAuctionOnchainSchema.plugin(toJSON);
+bidAuctionOnchainSchema.plugin(paginate);
 
 const BidAuctionOnchain = mongoose.model('BidAuctionOnchain', bidAuctionOnchainSchema);
 
