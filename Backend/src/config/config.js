@@ -28,6 +28,8 @@ const envVarsSchema = Joi.object()
     CLOUD_NAME: Joi.string().description('Cloudinary cloud name for media storage'),
     API_KEY: Joi.string().description('API key for accessing the Cloudinary API'),
     API_SECRET: Joi.string().description('API secret for accessing the Cloudinary API'),
+    BLOCK_NUMBER_START: Joi.number(),
+    NETWORK_RPC_URL: Joi.string(),
   })
   .unknown();
 
@@ -77,5 +79,9 @@ module.exports = {
     email: envVars.ADMIN_EMAIL,
     password: envVars.ADMIN_PASSWORD,
     username: envVars.ADMIN_USERNAME,
+  },
+  onchain: {
+    block_number_start: envVars.BLOCK_NUMBER_START,
+    network_rpc_url: envVars.NETWORK_RPC,
   },
 };

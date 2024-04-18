@@ -12,6 +12,7 @@ const { authLimiter } = require('./middlewares/rateLimiter');
 const routes = require('./routes/v1');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
+const { startSynchronizeDataFromSmartContract } = require('./utils/synchronize');
 
 const app = express();
 
@@ -66,5 +67,7 @@ app.use(errorConverter);
 
 // handle error
 app.use(errorHandler);
+
+startSynchronizeDataFromSmartContract();
 
 module.exports = app;

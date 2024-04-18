@@ -1,3 +1,12 @@
 module.exports.Token = require('./token.model');
 module.exports.User = require('./user.model');
 module.exports.Role = require('./role.model');
+module.exports.Synchronize = require('./synchronize.mode');
+module.exports.Transaction = require('./transaction.model');
+module.exports.NftOwner = require('./nft-owner.model');
+module.exports.NftOnchain = require('./nft-onchain.model');
+module.exports.OrderOnchain = require('./order-onchain.model');
+module.exports.MakeOfferOnchain = require('./makeoffer-onchain.model');
+module.exports.AuctionOnchain = require('./auction-onchain.model');
+module.exports.BidAuctionOnchain = require('./bidauction-onchain.model');
+module.exports.BuyOnchain = require('./buy-onchain.model');
