@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
 import SwitchDarkMode from "@/shared/SwitchDarkMode/SwitchDarkMode";
@@ -7,10 +7,43 @@ import AvatarDropdown from "./AvatarDropdown";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Navigation from "@/shared/Navigation/Navigation";
+import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import Loader from "../Loader";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import {
+  selectAddress,
+  selectBalance,
+  updateBalance,
+} from "@/redux/features/user/userSlice";
+import { selectLoading } from "@/redux/features/order/orderSlice";
+import { handleConnectWallet } from "@/utils/connectWallet";
+import { formatAddress } from "@/utils/common";
+import { getBalance } from "@/utils/web3";
 
 export interface MainNav2LoggedProps {}
 
 const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
+  const address: string = useAppSelector(selectAddress);
+  const balance: number = useAppSelector(selectBalance);
+  const isLoading: boolean = useAppSelector(selectLoading);
+  const dispatch = useAppDispatch();
+
+  const connectWallet = () => {
+    handleConnectWallet(dispatch);
+  };
+
+  const getBalanceUser = async (address: string) => {
+    const balance: number = await getBalance(address);
+
+    dispatch(updateBalance(balance));
+  };
+
+  useEffect(() => {
+    if (address) {
+      getBalanceUser(address);
+    }
+  }, [address]);
+
   return (
     <div className={`nc-MainNav2Logged relative z-10`}>
       <div className="container">
@@ -69,11 +102,35 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
                 Create
               </ButtonPrimary>
               <div></div>
-              <AvatarDropdown />
+              {address === "" ? (
+                <ButtonSecondary
+                  onClick={connectWallet}
+                  className="self-center"
+                  sizeClass="px-4 py-2 sm:px-5"
+                >
+                  {isLoading ? <Loader /> : "Connect Wallet"}
+                </ButtonSecondary>
+              ) : (
+                <AvatarDropdown
+                  wallet={formatAddress(address)}
+                  balance={balance}
+                  username="Từ Nhật Lương"
+                  profileImage="https://phunugioi.com/wp-content/uploads/2020/10/anh-dai-dien-avt-anime-1.jpg"
+                />
+              )}
             </div>
             <div className="flex items-center space-x-1 xl:hidden">
               <NotifyDropdown />
-              <AvatarDropdown />
+              {address === "" ? (
+                <AvatarDropdown />
+              ) : (
+                <AvatarDropdown
+                  wallet={formatAddress(address)}
+                  balance={balance}
+                  username="Từ Nhật Lương"
+                  profileImage="https://phunugioi.com/wp-content/uploads/2020/10/anh-dai-dien-avt-anime-1.jpg"
+                />
+              )}
               <MenuBar />
             </div>
           </div>
